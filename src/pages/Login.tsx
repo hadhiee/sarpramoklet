@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, KeyRound, Lock } from 'lucide-react';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
+// NOTE: Replace this with your actual Google Client ID
+const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE";
 
 interface LoginProps {
   onLogin: (email: string) => void;
@@ -22,8 +27,25 @@ const Login = ({ onLogin }: LoginProps) => {
     }
   };
 
+  const handleGoogleSuccess = (credentialResponse: any) => {
+    if (credentialResponse.credential) {
+      try {
+        const decoded = jwtDecode(credentialResponse.credential) as any;
+        if (decoded?.email === 'hadi@smktelkom-mlg.sch.id') {
+          onLogin(decoded.email);
+          navigate('/');
+        } else {
+          setError('Akses ditolak. Akun Google tidak memiliki akses administrator.');
+        }
+      } catch (err) {
+        setError('Gagal memverifikasi akun Google.');
+      }
+    }
+  };
+
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <div className="animate-fade-in" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
       <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{ display: 'inline-flex', padding: '1rem', background: 'var(--accent-blue-ghost)', color: 'var(--accent-blue)', borderRadius: '50%', marginBottom: '1rem' }}>
@@ -96,13 +118,32 @@ const Login = ({ onLogin }: LoginProps) => {
           </button>
         </form>
 
+        <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }}></div>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Atau Masuk Cepat Pakai</span>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }}></div>
+        </div>
+
+        <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              setError('Autentikasi Google gagal atau dibatalkan.');
+            }}
+            theme="outline"
+            text="signin_with"
+            shape="rectangular"
+          />
+        </div>
+
         <div style={{ marginTop: '2rem', textAlign: 'center' }}>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             Lupa email administratif Anda? Silakan hubungi tim IT Support untuk melakukan sinkronisasi akses dapodik.
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </GoogleOAuthProvider>
   );
 };
 
