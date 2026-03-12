@@ -161,7 +161,7 @@ export const USERS: User[] = [
   },
   {
     id: 'U009',
-    nama: 'Muhammad Bagus Arifin, M.Pd.',
+    nama: 'Muhammad Bagus Arifin, S.Pd.',
     nip: '26960021',
     jabatan: 'PIC. IT. Technical Support',
     roleAplikasi: ROLES.PIC_IT_SUPPORT,
