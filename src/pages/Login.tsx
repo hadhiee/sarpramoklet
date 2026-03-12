@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield, KeyRound, Lock } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
@@ -12,20 +12,8 @@ interface LoginProps {
 }
 
 const Login = ({ onLogin }: LoginProps) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email === 'hadi@smktelkom-mlg.sch.id' && password === 'mokletjaya') {
-      onLogin(email);
-      navigate('/');
-    } else {
-      setError('Akses ditolak. Email tidak terdaftar atau password salah.');
-    }
-  };
 
   const handleGoogleSuccess = (credentialResponse: any) => {
     if (credentialResponse.credential) {
@@ -52,77 +40,14 @@ const Login = ({ onLogin }: LoginProps) => {
             <Shield size={40} />
           </div>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Login Administrator</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Masukkan hak akses untuk mengelola data</p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Masuk dengan akun Google untuk mengelola data</p>
         </div>
 
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>Alamat Email Akses</label>
-            <div style={{ position: 'relative' }}>
-              <input 
-                type="email" 
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setError('');
-                }}
-                placeholder="email@smktelkom-mlg.sch.id"
-                style={{ 
-                  width: '100%', 
-                  padding: '0.8rem 1rem 0.8rem 2.8rem', 
-                  borderRadius: '8px', 
-                  background: 'rgba(0,0,0,0.2)', 
-                  border: '1px solid var(--border-subtle)', 
-                  color: 'var(--text-primary)',
-                  outline: 'none',
-                  transition: 'var(--trans-fast)'
-                }} 
-                required
-              />
-              <KeyRound size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            </div>
+        {error && (
+          <div style={{ padding: '1rem', background: 'var(--accent-rose-ghost)', color: 'var(--accent-rose)', borderRadius: '8px', marginBottom: '1.5rem', textAlign: 'center', fontSize: '0.9rem' }}>
+            {error}
           </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>Password</label>
-            <div style={{ position: 'relative' }}>
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setError('');
-                }}
-                placeholder="••••••••"
-                style={{ 
-                  width: '100%', 
-                  padding: '0.8rem 1rem 0.8rem 2.8rem', 
-                  borderRadius: '8px', 
-                  background: 'rgba(0,0,0,0.2)', 
-                  border: '1px solid var(--border-subtle)', 
-                  color: 'var(--text-primary)',
-                  outline: 'none',
-                  transition: 'var(--trans-fast)'
-                }} 
-                required
-              />
-              <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            </div>
-            {error && (
-              <p style={{ color: 'var(--accent-rose)', fontSize: '0.8rem', marginTop: '0.2rem' }}>{error}</p>
-            )}
-          </div>
-
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.8rem', justifyContent: 'center' }}>
-            Masuk ke Sistem
-          </button>
-        </form>
-
-        <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }}></div>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Atau Masuk Cepat Pakai</span>
-          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }}></div>
-        </div>
+        )}
 
         <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
           <GoogleLogin
