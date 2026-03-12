@@ -11,6 +11,7 @@ import DummyPage from './pages/DummyPage';
 import Personnel from './pages/Personnel';
 import Assignment from './pages/Assignment';
 import Performance from './pages/Performance';
+import Utilities from './pages/Utilities';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
               <Route path="/personnel" element={<Personnel />} />
               <Route path="/assignment" element={<Assignment />} />
               <Route path="/performance" element={<Performance />} />
+              <Route path="/utilities" element={<Utilities />} />
               {/* Dummy pages for the rest */}
               <Route path="/maintenance" element={<DummyPage title="Jadwal Maintenance" />} />
               <Route path="/rooms" element={<DummyPage title="Gedung & Ruang" />} />

@@ -1,4 +1,4 @@
-import { LayoutDashboard, Ticket, Server, Component, Building, Package, BookOpen, Bell, Presentation, Users, Briefcase, TrendingUp, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, Ticket, Server, Component, Building, Package, BookOpen, Bell, Presentation, Users, Briefcase, TrendingUp, BarChart3, Zap } from 'lucide-react';
 
 export const NAVIGATION = [
   { path: '/', name: 'Dashboard', icon: LayoutDashboard },
@@ -7,6 +7,7 @@ export const NAVIGATION = [
   { path: '/it', name: 'IT Services', icon: Server },
   { path: '/lab', name: 'Laboratorium', icon: Component },
   { path: '/sarpras', name: 'Sarpras', icon: Building },
+  { path: '/utilities', name: 'Tagihan Utilitas', icon: Zap },
   { path: '/assets', name: 'Aset & Inventaris', icon: Package },
   { path: '/personnel', name: 'Personel', icon: Users },
   { path: '/assignment', name: 'Penugasan', icon: Briefcase },
