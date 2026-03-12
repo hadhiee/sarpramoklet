@@ -5,7 +5,7 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
 // NOTE: Replace this with your actual Google Client ID
-const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE";
+const GOOGLE_CLIENT_ID = "975387842374-locrn64jjrt4m6h7ffsq1ic6m2etbl3o.apps.googleusercontent.com";
 
 interface LoginProps {
   onLogin: (email: string) => void;
