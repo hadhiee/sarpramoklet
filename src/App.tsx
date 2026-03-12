@@ -31,12 +31,30 @@ const ScrollToTop = () => {
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(() => {
+    return localStorage.getItem('theme') === 'light';
+  });
+
+  useEffect(() => {
+    if (isLightMode) {
+      document.body.classList.add('light-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.body.classList.remove('light-theme');
+      localStorage.setItem('theme', 'dark');
+    }
+  }, [isLightMode]);
 
   return (
     <Router>
       <ScrollToTop />
       <div className="app-layout">
-        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+        <Sidebar 
+          isOpen={isSidebarOpen} 
+          setIsOpen={setIsSidebarOpen} 
+          isLightMode={isLightMode} 
+          setIsLightMode={setIsLightMode} 
+        />
         
         <main className="main-content">
           <div className="bg-glow"></div>

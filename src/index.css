@@ -41,6 +41,77 @@
   --trans-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.26, 1.55);
 }
 
+/* --- Light Theme --- */
+body.light-theme {
+  --bg-primary: #f2f6fa;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --border-focus: rgba(15, 23, 42, 0.25);
+  
+  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
+
+  --accent-cyan: #0891b2;
+  --accent-blue: #2563eb;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-rose: #e11d48;
+
+  /* Overriding global inline rgba whites to black variants for light mode using generic selectors */
+  color-scheme: light;
+}
+
+body.light-theme [style*="rgba(255, 255, 255, 0.02)"],
+body.light-theme [style*="rgba(255,255,255,0.02)"] {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+body.light-theme [style*="rgba(255, 255, 255, 0.03)"],
+body.light-theme [style*="rgba(255,255,255,0.03)"] {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+body.light-theme [style*="rgba(255, 255, 255, 0.05)"],
+body.light-theme [style*="rgba(255,255,255,0.05)"] {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Modal and panel overrides */
+body.light-theme .glass-panel[style*="background: var(--bg-secondary)"] {
+  background: var(--bg-card) !important;
+}
+
+/* Table fixes */
+body.light-theme th {
+  background: rgba(0, 0, 0, 0.02);
+}
+body.light-theme tr:hover td {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trans-fast);
+}
+.theme-toggle-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-focus);
+}
+
 * {
   margin: 0;
   padding: 0;
