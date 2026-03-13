@@ -27,15 +27,20 @@ const recentIssues = [
 
 interface DashboardProps {
   isLoggedIn?: boolean;
+  userPicture?: string;
 }
 
-const Dashboard = ({ isLoggedIn = false }: DashboardProps) => {
+const Dashboard = ({ isLoggedIn = false, userPicture = '' }: DashboardProps) => {
   return (
     <div className="animate-fade-in">
       {isLoggedIn && (
         <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', borderLeft: '4px solid var(--accent-blue)', background: 'linear-gradient(90deg, var(--accent-blue-ghost), transparent)' }}>
-          <div style={{ padding: '8px', background: 'var(--bg-card)', borderRadius: '12px', color: 'var(--accent-blue)', border: '1px solid var(--border-subtle)' }}>
-            <UserCircle2 size={24} />
+          <div style={{ padding: userPicture ? '0' : '8px', background: 'var(--bg-card)', borderRadius: '12px', color: 'var(--accent-blue)', border: '1px solid var(--border-subtle)', width: '48px', height: '48px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {userPicture ? (
+              <img src={userPicture} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <UserCircle2 size={24} />
+            )}
           </div>
           <div>
             <h2 style={{ fontSize: '1.1rem', margin: 0, fontWeight: 700 }}>Selamat Datang, {CURRENT_USER.nama}</h2>

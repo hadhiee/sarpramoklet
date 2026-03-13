@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 const GOOGLE_CLIENT_ID = "975387842374-locrn64jjrt4m6h7ffsq1ic6m2etbl3o.apps.googleusercontent.com";
 
 interface LoginProps {
-  onLogin: (email: string) => void;
+  onLogin: (email: string, picture?: string) => void;
 }
 
 const Login = ({ onLogin }: LoginProps) => {
@@ -20,7 +20,7 @@ const Login = ({ onLogin }: LoginProps) => {
       try {
         const decoded = jwtDecode(credentialResponse.credential) as any;
         if (decoded?.email === 'hadi@smktelkom-mlg.sch.id') {
-          onLogin(decoded.email);
+          onLogin(decoded.email, decoded.picture);
           navigate('/');
         } else {
           setError('Akses ditolak. Akun Google tidak memiliki akses administrator.');

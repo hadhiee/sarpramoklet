@@ -43,6 +43,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('userEmail') === 'hadi@smktelkom-mlg.sch.id';
   });
+  const [userPicture, setUserPicture] = useState(() => {
+    return localStorage.getItem('userPicture') || '';
+  });
   const [isLightMode, setIsLightMode] = useState(() => {
     return localStorage.getItem('theme') === 'light';
   });
@@ -68,6 +71,8 @@ function App() {
           setIsLightMode={setIsLightMode}
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
+          userPicture={userPicture}
+          setUserPicture={setUserPicture}
         />
         
         <main className="main-content">
@@ -83,8 +88,15 @@ function App() {
           <div className="content-container">
             <Routes>
               {/* Public Routes */}
-              <Route path="/login" element={<Login onLogin={(email) => { localStorage.setItem('userEmail', email); setIsLoggedIn(true); }} />} />
-              <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+              <Route path="/login" element={
+                <Login onLogin={(email, picture) => { 
+                  localStorage.setItem('userEmail', email); 
+                  if (picture) localStorage.setItem('userPicture', picture);
+                  setIsLoggedIn(true); 
+                  if (picture) setUserPicture(picture);
+                }} />
+              } />
+              <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} userPicture={userPicture} />} />
               <Route path="/meeting" element={<MeetingDashboard />} />
               <Route path="/it" element={<ITPage />} />
               <Route path="/lab" element={<LabPage />} />

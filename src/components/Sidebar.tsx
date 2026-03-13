@@ -10,9 +10,11 @@ interface SidebarProps {
   setIsLightMode?: (isLightMode: boolean) => void;
   isLoggedIn?: boolean;
   setIsLoggedIn?: (isLoggedIn: boolean) => void;
+  userPicture?: string;
+  setUserPicture?: (picture: string) => void;
 }
 
-const Sidebar = ({ isOpen = false, setIsOpen, isLightMode = false, setIsLightMode, isLoggedIn = false, setIsLoggedIn }: SidebarProps) => {
+const Sidebar = ({ isOpen = false, setIsOpen, isLightMode = false, setIsLightMode, isLoggedIn = false, setIsLoggedIn, userPicture = '', setUserPicture }: SidebarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -72,8 +74,12 @@ const Sidebar = ({ isOpen = false, setIsOpen, isLightMode = false, setIsLightMod
         <div style={{ padding: '1.5rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden' }}>
-              <div style={{ padding: '6px', background: 'var(--bg-card)', borderRadius: '50%', border: '1px solid var(--border-subtle)', flexShrink: 0 }}>
-                <UserCircle2 size={32} color={isLoggedIn ? "var(--accent-blue)" : "var(--text-secondary)"} />
+              <div style={{ padding: isLoggedIn && userPicture ? '0' : '6px', background: 'var(--bg-card)', borderRadius: '50%', border: '1px solid var(--border-subtle)', flexShrink: 0, width: '46px', height: '46px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {isLoggedIn && userPicture ? (
+                  <img src={userPicture} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <UserCircle2 size={32} color={isLoggedIn ? "var(--accent-blue)" : "var(--text-secondary)"} />
+                )}
               </div>
               <div style={{ overflow: 'hidden' }}>
                 <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -100,7 +106,9 @@ const Sidebar = ({ isOpen = false, setIsOpen, isLightMode = false, setIsLightMod
               className="btn btn-outline" 
               onClick={() => {
                 localStorage.removeItem('userEmail');
+                localStorage.removeItem('userPicture');
                 if (setIsLoggedIn) setIsLoggedIn(false);
+                if (setUserPicture) setUserPicture('');
                 navigate('/');
               }}
               style={{ width: '100%', fontSize: '0.85rem', padding: '0.5rem', justifyContent: 'center', borderColor: 'var(--accent-rose)', color: 'var(--accent-rose)' }}
