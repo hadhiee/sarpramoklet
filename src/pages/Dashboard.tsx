@@ -52,7 +52,20 @@ const Dashboard = ({ isLoggedIn = false, userPicture = '' }: DashboardProps) => 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
           <h1 className="page-title gradient-text">Pusat Kendali Layanan Internal</h1>
-          <p className="page-subtitle" style={{ margin: 0, maxWidth: '800px' }}>
+          <div style={{ marginTop: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontWeight: 800,
+                color: '#7dd3fc',
+                textShadow: '0 0 8px rgba(125,211,252,0.75), 0 0 18px rgba(59,130,246,0.55), 0 0 28px rgba(56,189,248,0.35)',
+                letterSpacing: '0.4px'
+              }}
+            >
+              SarMok
+            </span>
+            <span>Dashboard — Status Layanan</span>
+          </div>
+          <p className="page-subtitle" style={{ margin: '0.75rem 0 0 0', maxWidth: '800px' }}>
             Sistem manajemen terintegrasi untuk memantau penugasan, progres rutin, dan proyek pengembangan tim IT, Laboratorium & Sarana Prasarana.
           </p>
         </div>
